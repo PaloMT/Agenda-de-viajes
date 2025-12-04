@@ -3,33 +3,23 @@ package es.upm;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Viaje {
 
-    // ---------------------------
-    // Códigos de resultado (Listado 7)
-    // ---------------------------
     public static final int EXITO = 0;
     public static final int ERROR_DIA_INVALIDO = 1;
     public static final int ERROR_DIA_COMPLETO = 2;
     public static final int ERROR_SOLAPAMIENTO = 3;
 
-    // ---------------------------
-    // Atributos principales
-    // ---------------------------
+
     private int numDias;
     private int maxActividadesPorDia;
 
-    // Estructuras para almacenar la planificación
-    // Índices de día: 0 .. numDias-1
-    // Índices de actividad dentro del día: 0 .. maxActividadesPorDia-1
     private Actividad[][] actividades;
-    private String[][] horasInicio;          // "HH:MM"
-    private int[] numActividadesDia;         // cuántas hay realmente en cada día
+    private String[][] horasInicio;
+    private int[] numActividadesDia;
 
-    // ---------------------------
-    // Constructor (enunciado)
-    // ---------------------------
     public Viaje(int numDias, int maxActividades) {
         this.numDias = numDias;
         this.maxActividadesPorDia = maxActividades;
@@ -37,15 +27,13 @@ public class Viaje {
         this.actividades = new Actividad[numDias][maxActividadesPorDia];
         this.horasInicio = new String[numDias][maxActividadesPorDia];
         this.numActividadesDia = new int[numDias];
-        // Java ya inicializa los arrays a null/0, así que no hace falta más
+
     }
 
-    // Número de días del viaje
     public int getNumDias() {
         return numDias;
     }
 
-    // Número de actividades en un día concreto
     public int getNumActividadesDia(int dia) {
         if (dia < 0 || dia >= numDias) {
             return 0;
@@ -53,21 +41,17 @@ public class Viaje {
         return numActividadesDia[dia];
     }
 
-    // ---------------------------
-    // Planificar actividades (enunciado 2.2.3)
-    // ---------------------------
+
     public int agregarActividad(int dia, Actividad actividad, String horaInicio) {
-        // 1) Día válido
-        if (dia < 0 || dia >= numDias) {
+
+         if (dia < 0 || dia >= numDias) {
             return ERROR_DIA_INVALIDO;
         }
 
-        // 2) Día completo
         if (numActividadesDia[dia] >= maxActividadesPorDia) {
             return ERROR_DIA_COMPLETO;
         }
 
-        // 3) Comprobar solapamientos
         int inicioNuevo = Utilidades.horaAMinutos(horaInicio);
         int finNuevo = inicioNuevo + actividad.getDuracionMinutos();
 
@@ -75,15 +59,13 @@ public class Viaje {
             int inicioExistente = Utilidades.horaAMinutos(horasInicio[dia][i]);
             int finExistente = inicioExistente + actividades[dia][i].getDuracionMinutos();
 
-            // Dos actividades son compatibles sii:
-            //   finA <= inicioB  ó  finB <= inicioA
+
             boolean compatibles = (finExistente <= inicioNuevo) || (finNuevo <= inicioExistente);
             if (!compatibles) {
                 return ERROR_SOLAPAMIENTO;
             }
         }
 
-        // 4) Insertar y mantener orden
         int pos = numActividadesDia[dia];
         actividades[dia][pos] = actividad;
         horasInicio[dia][pos] = horaInicio;
@@ -94,7 +76,6 @@ public class Viaje {
         return EXITO;
     }
 
-    // Ordenación por hora (burbuja sencilla)
     private void ordenarActividadesDia(int dia) {
         int n = numActividadesDia[dia];
         boolean cambiado;
@@ -106,12 +87,11 @@ public class Viaje {
                 int h2 = Utilidades.horaAMinutos(horasInicio[dia][i + 1]);
 
                 if (h1 > h2) {
-                    // Intercambio de horas
+
                     String tmpHora = horasInicio[dia][i];
                     horasInicio[dia][i] = horasInicio[dia][i + 1];
                     horasInicio[dia][i + 1] = tmpHora;
 
-                    // Intercambio de actividades paralelo
                     Actividad tmpAct = actividades[dia][i];
                     actividades[dia][i] = actividades[dia][i + 1];
                     actividades[dia][i + 1] = tmpAct;
@@ -122,9 +102,7 @@ public class Viaje {
         } while (cambiado);
     }
 
-    // ---------------------------
-    // Eliminar / consultar actividades
-    // ---------------------------
+
     public boolean eliminarActividad(int dia, String horaInicio) {
         if (dia < 0 || dia >= numDias) {
             return false;
@@ -133,7 +111,6 @@ public class Viaje {
         int n = numActividadesDia[dia];
         int indice = -1;
 
-        // Buscar la actividad con esa hora
         for (int i = 0; i < n; i++) {
             if (horasInicio[dia][i].equals(horaInicio)) {
                 indice = i;
@@ -145,13 +122,11 @@ public class Viaje {
             return false;
         }
 
-        // Desplazar a la izquierda para compactar
         for (int i = indice; i < n - 1; i++) {
             actividades[dia][i] = actividades[dia][i + 1];
             horasInicio[dia][i] = horasInicio[dia][i + 1];
         }
 
-        // Limpiar última posición
         actividades[dia][n - 1] = null;
         horasInicio[dia][n - 1] = null;
         numActividadesDia[dia]--;
@@ -159,7 +134,6 @@ public class Viaje {
         return true;
     }
 
-    // Devuelve una copia de las actividades de ese día, ordenadas por hora
     public Actividad[] obtenerActividadesDia(int dia) {
         if (dia < 0 || dia >= numDias) {
             return null;
@@ -173,9 +147,7 @@ public class Viaje {
         return copia;
     }
 
-    // ---------------------------
-    // Representación textual del itinerario (Listado 9)
-    // ---------------------------
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -216,49 +188,44 @@ public class Viaje {
         return sb.toString();
     }
 
-    // ---------------------------
-    // Guardar itinerario en fichero (Listado 10)
-    // ---------------------------
-    public void guardarItinerario(String nombreArchivo) throws IOException {
+
+    public void guardarItinerario(String nombreArchivo) throws IOException{
         int totalActividades = 0;
         double precioTotal = 0.0;
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
+        try (PrintWriter writer = new PrintWriter(nombreArchivo)){
 
-            // Una línea por día
-            for (int d = 0; d < numDias; d++) {
-                writer.write("Día " + (d + 1) + ": ");
+            for (int d = 0; d < numDias; d++){
+                writer.print("Día " + (d + 1) + ": ");
 
                 int n = numActividadesDia[d];
 
-                if (n == 0) {
-                    writer.write("---");
-                } else {
-                    for (int i = 0; i < n; i++) {
-                        Actividad act = actividades[d][i];
-                        String hora = horasInicio[d][i];
+                if (n == 0){
+                    writer.print("---");
+                } else{
+                    for (int i = 0; i < n; i++){
+                        Actividad act=actividades[d][i];
+                        String hora=horasInicio[d][i];
 
-                        writer.write(hora + " " + act.getNombre()
+                        writer.print(hora + " " + act.getNombre()
                                 + " (dur " + Utilidades.formatearDuracion(act.getDuracionMinutos())
                                 + ", " + Utilidades.formatearPrecio(act.getPrecio()) + ")");
 
-                        if (i < n - 1) {
-                            writer.write("; ");
+                        if (i < n - 1){
+                            writer.print("; ");
                         }
 
                         totalActividades++;
-                        precioTotal += act.getPrecio();
+                        precioTotal+=act.getPrecio();
                     }
                 }
 
-                writer.newLine();
+                writer.print("\n");
             }
 
-            // Línea de resumen final
-            writer.write("Resumen: Días: " + numDias
-                    + "; Actividades: " + totalActividades
-                    + "; Precio total: " + Utilidades.formatearPrecio(precioTotal));
-            writer.newLine();
+            writer.print("Resumen: Días: "+numDias
+                    + "; Actividades: "+totalActividades
+                    + "; Precio total: "+Utilidades.formatearPrecio(precioTotal)+"\n");
         }
     }
-}
+    }

@@ -12,13 +12,11 @@ public class Utilidades {
     // =========================================================================
 
     public static String leerCadena(Scanner teclado, String s) {
-        // Muestra un mensaje por pantalla y lee una cadena de texto introducida por el usuario
         System.out.print(s);
         return teclado.nextLine();
     }
 
     public static int leerNumero(Scanner teclado, String mensaje, int minimo, int maximo) {
-        // Muestra un mensaje y lee un número entero en el rango [minimo, maximo]
         int numero;
         do {
             System.out.print(mensaje);
@@ -28,7 +26,6 @@ public class Utilidades {
     }
 
     public static double leerDouble(Scanner teclado, String mensaje, double minimo, double maximo) {
-        // Muestra un mensaje y lee un número decimal en el rango [minimo, maximo]
         double numero;
         do {
             System.out.print(mensaje);
@@ -38,7 +35,6 @@ public class Utilidades {
     }
 
     public static String leerHora(Scanner teclado, String mensaje) {
-        // Muestra un mensaje y lee una hora en formato "HH:MM"y
         int hora = 0, minutos = 0;
         String horaIntroducida;
         boolean esValida = false;
@@ -74,22 +70,19 @@ public class Utilidades {
     // =========================================================================
 
     public static int horaAMinutos(String hora) {
-        // Convierte una hora en formato "HH:MM" a minutos desde medianoche
         String[] dato = hora.split(":");
         int horaConvertir = Integer.parseInt(dato[0]);
         int minutos = Integer.parseInt(dato[1]);
-        return (horaConvertir*60)+minutos; // @todo MODIFICAR PARA DEVOLVER LOS MINUTOS
+        return (horaConvertir*60)+minutos;
     }
 
     public static String minutosAHora(int minutos) {
-        // Convierte minutos desde medianoche a formato "HH:MM"
         int horas = minutos/60;
         int minutosnew = minutos % 60;
-        return String.format("%02d:%02d",horas,minutosnew); // @todo MODIFICAR PARA DEVOLVER LA HORA EN FORMATO HH:MM
+        return String.format("%02d:%02d",horas,minutosnew);
     }
 
     public static String formatearDuracion(int duracionMinutos) {
-        // Formatea una duración en minutos a formato legible (ej: 90 -> "1h 30min")
         int horas = duracionMinutos/60;
         int minutosnew = duracionMinutos % 60;
         String formato;
@@ -101,18 +94,16 @@ public class Utilidades {
         }else {
             formato = horas+"h "+minutosnew+"min";
         }
-        return formato; // @todo MODIFICAR PARA DEVOLVER LA DURACIÓN FORMATEADA
+        return formato;
     }
 
     public static String formatearPrecio(double precio) {
-        // Formatea un precio a formato legible (ej: 12.50 -> "12.50 €")
-        return String.format(Locale.US,"%.2f €", precio); // @todo MODIFICAR PARA DEVOLVER EL PRECIO FORMATEADO
+        return String.format(Locale.US,"%.2f €", precio);
     }
 
     public static double cadenaAPrecio(String precioStr) {
-        // Convierte una cadena con precio (ej: "12.50 €") a double
         String[] datos  = precioStr.split(" ");
         double  precioDbl = Double.parseDouble(datos[0]);
-        return precioDbl; // @todo MODIFICAR PARA DEVOLVER EL PRECIO COMO DOUBLE
+        return precioDbl;
     }
 }
