@@ -17,20 +17,31 @@ public class Utilidades {
     }
 
     public static int leerNumero(Scanner teclado, String mensaje, int minimo, int maximo) {
-        int numero;
-        do {
+        int numero = -1;
+        do{
+            try{
             System.out.print(mensaje);
-            numero = teclado.nextInt();
-        } while (numero < minimo || numero > maximo);
+            numero = teclado.nextInt();}
+            catch (java.util.InputMismatchException e) {
+                System.out.println("Error: Introduce un número entero válido.");
+            } finally {
+                teclado.nextLine();
+            }
+        }while (numero < minimo || numero > maximo);
         return numero;
     }
 
     public static double leerDouble(Scanner teclado, String mensaje, double minimo, double maximo) {
-        double numero;
+        double numero = -1;
         do {
+            try{
             System.out.print(mensaje);
-            numero = teclado.useLocale(Locale.US).nextDouble();
-        } while (numero < minimo || numero > maximo);
+            numero = teclado.useLocale(Locale.US).nextDouble();}
+            catch (java.util.InputMismatchException e) {
+                System.out.println("Error: Introduce un número entero válido.");
+            } finally {
+                teclado.nextLine();
+            }} while (numero < minimo || numero > maximo);
         return numero;
     }
 

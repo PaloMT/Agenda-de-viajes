@@ -11,14 +11,12 @@ public class CatalogoActividades {
     public static final int ERROR_DEMASIADOS = 2;
 
     public CatalogoActividades(int maxActividades) {
-        // Constructor del catálogo
         this.maxActividades = maxActividades;
         this.actividades = new Actividad[maxActividades];
         this.numActividades = 0;
     }
 
     public boolean actividadesCompletas() {
-        // Indica si el catálogo está lleno.
         boolean verificar = false;
         if (this.numActividades == this.maxActividades) verificar = true;
         return verificar;

@@ -3,30 +3,46 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Scanner;
 
+/**
+ * Clase que se encarga de la comunicación con el usuario por consola.
+ * Muestra menu, recibe entradas y gestiona operaciones sobre el catálogo y el viaje.
+ */
 public class InterfazUsuario{
     private CatalogoActividades catalogo;
     private Viaje viaje;
-
     private int maxRecursosPorActividad;
     private int maxComentariosPorActividad;
 
+    /**
+     * Crea la interfaz de usuario a partir de un catálogo y un viaje
+     * @param catalogo catalogo de actividades
+     * @param viaje viaje asociado
+     * @param maxRecursosPorActividad máximo de recursos por actividad
+     * @param maxComentariosPorActividad máximo de comentarios por actividad
+     */
     public InterfazUsuario(CatalogoActividades catalogo, Viaje viaje, int maxRecursosPorActividad, int maxComentariosPorActividad){
         this.catalogo = catalogo;
         this.viaje = viaje;
         this.maxRecursosPorActividad = maxRecursosPorActividad;
         this.maxComentariosPorActividad = maxComentariosPorActividad;
     }
-
+    /**
+     * Inicia el programa y muestra el menu principal
+     * @param scanner lector para la entrada de usuario
+     */
     public void iniciar(Scanner scanner){
         scanner.useLocale(Locale.US);
         menuPrincipal(scanner);
     }
-
+    /**
+     * Muestra el menú principal y precesa las opciones seleccionadas
+     * @param scanner lector de entrada
+     */
     private void menuPrincipal(Scanner scanner){
         boolean salir = false;
         while (!salir) {
             mostrarMenu();
-            int opcion = Utilidades.leerNumero(scanner, ">> Elige una opción: >> \n", 1, 7);
+            int opcion = Utilidades.leerNumero(scanner, "Elige una opción: ", 1, 7);
             switch (opcion){
                 case 1: agregarActividad(scanner); break;
                 case 2: consultarActividad(scanner); break;
@@ -38,7 +54,9 @@ public class InterfazUsuario{
             }
         }
     }
-
+    /**
+     * Muestra en pantalla el menú principal de opciones
+     */
     private void mostrarMenu() {
         System.out.println(">> --- Menú Principal --- >>");
         System.out.println("1. Agregar Actividad");
@@ -49,7 +67,10 @@ public class InterfazUsuario{
         System.out.println("6. Guardar Itinerario");
         System.out.println("7. Salir");
     }
-
+    /**
+     * Crea una nueva actividad pidiendo los datos al usuario y la añade al catálogo
+     * @param scanner lector de entrada
+     */
     private void agregarActividad(Scanner scanner) {
 
         String nombre = Utilidades.leerCadena(scanner, "Nombre de la actividad: ");
@@ -76,7 +97,6 @@ public class InterfazUsuario{
                 seguirRecursos = true;
             }
         }
-
         boolean seguirComentarios = false;
         System.out.println("Introduce los comentarios (una línea por comentario, escribe 'fin' para terminar):");
         while (!actividad.comentariosCompletos()&&!seguirComentarios) {
@@ -99,14 +119,22 @@ public class InterfazUsuario{
             System.out.println("No se pueden añadir más actividades.");
         }
     }
-
+    /**
+     * Permite consultar o editar una actividad existente
+     * @param scanner
+     */
     private void consultarActividad(Scanner scanner) {
         Actividad seleccionada = buscarActividadPorNombre(scanner);
         if (seleccionada != null) {
             editarActividad(scanner, seleccionada);
         }
     }
-
+    /**
+     * Busca actividades cuyo nombre contenga un texto introducido por el usuario
+     * Muestra las coincidencias y permite al usuario selecciona una de ellas
+     * @param scanner lector de entrada por consola
+     * @return actividad seleccionada por el usuario
+     */
     private Actividad buscarActividadPorNombre(Scanner scanner) {
         while (true) {
             String texto = Utilidades.leerCadena(scanner, "Introduce el texto de la actividad a buscar (-FIN- para volver): " );
@@ -120,7 +148,12 @@ public class InterfazUsuario{
             return seleccionarActividad(scanner, actividades);
         }
     }
-
+    /**
+     * Muestra una lista numerada de actividades y permite escoger una por índice
+     * @param scanner
+     * @param actividades array de actividades disponibles
+     * @return actividad elegida
+     */
     private Actividad seleccionarActividad(Scanner scanner, Actividad[] actividades) {
         System.out.println("Actividades encontradas:");
         for (int i = 0; i < actividades.length; i++) {
@@ -132,7 +165,12 @@ public class InterfazUsuario{
         int opcion = Utilidades.leerNumero(scanner, "Elige una actividad: ", 1, actividades.length);
         return actividades[opcion - 1];
     }
-
+    /**
+     * Muestra los datos de una actividad y ofrece un pequeño menú de edición:
+     * añadir recurso, añadir comentario o eliminar la actividad
+     * @param scanner
+     * @param seleccionada actividad sobre la que se va a operar
+     */
     private void editarActividad(Scanner scanner, Actividad seleccionada) {
         System.out.println();
         System.out.println(seleccionada.toString());
@@ -180,7 +218,10 @@ public class InterfazUsuario{
                 break;
         }
     }
-
+    /**
+     * Guarda los datos del catálogo o del viaje en un fichero de texto
+     * @param scanner
+     */
     private void guardarActividades(Scanner scanner) {
         String nombreArchivo = Utilidades.leerCadena(scanner, "Archivo donde guardar las actividades: ");
         try {
@@ -190,7 +231,10 @@ public class InterfazUsuario{
             System.out.println("Error al guardar el archivo: " + e.getMessage());
         }
     }
-
+    /**
+     * Pide la ruta de un fichero y carga desde él las actividades al catálogo
+     * @param scanner
+     */
     private void cargarActividades(Scanner scanner) {
         String nombreArchivo = Utilidades.leerCadena(scanner, "Archivo de donde cargar las actividades: ");
         try {
@@ -200,14 +244,17 @@ public class InterfazUsuario{
             System.out.println("Error al cargar el archivo: " + e.getMessage());
         }
     }
-
+    /**
+     * Planifica actividades dentro del viaje, indicando día, hora y actividad
+     * @param scanner
+     */
     private void planificarViaje(Scanner scanner) {
         System.out.println("Planificación del viaje:");
         System.out.print(viaje.toString());
         System.out.println();
         int numDias = viaje.getNumDias();
         int diaUsuario = Utilidades.leerNumero(scanner, "Introduce el día del viaje (1-" + numDias + "): ", 1, numDias);
-        String horaInicio = Utilidades.leerCadena(scanner, "Introduce la hora de inicio (HH:MM): ");
+        String horaInicio = Utilidades.leerHora(scanner, "Introduce la hora de inicio (HH:MM): ");
         Actividad seleccionada = buscarActividadPorNombre(scanner);
         if (seleccionada == null) {
             return;
@@ -225,7 +272,10 @@ public class InterfazUsuario{
             System.out.println("La actividad se solapa con otra actividad ya planificada.");
         }
     }
-
+    /**
+     * Pidde al usuario la ruta de un fichero y ordena guardar en él el itinerario del viaje
+     * @param scanner
+     */
     private void guardarItinerario(Scanner scanner) {
         String nombreArchivo = Utilidades.leerCadena(scanner,"Archivo donde guardar el itinerario: ");
         try {

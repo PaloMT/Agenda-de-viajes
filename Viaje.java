@@ -5,21 +5,51 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ *Gestiona un viaje de varios días con actividades planificadas.
+ * Controla la inserción, orden y solapamiento de actividades por día y hora.
+ */
 public class Viaje {
 
+    /**
+     * Códigos de resultado para agregar actividades
+     * 0= éxito, 1= día inválido, 2 = día completo, 3= solapamiento
+     */
     public static final int EXITO = 0;
     public static final int ERROR_DIA_INVALIDO = 1;
     public static final int ERROR_DIA_COMPLETO = 2;
     public static final int ERROR_SOLAPAMIENTO = 3;
 
 
+    /**
+     * Numero total de dias que dura el viaje
+     */
     private int numDias;
+    /**
+     * Numero maximo de actividades que se pueden planificar por dia
+     */
     private int maxActividadesPorDia;
 
+    /**
+     * Matriz de actividades planificadas (dias x posición)
+     */
     private Actividad[][] actividades;
+    /**
+     * Matriz de horas de inicio correspondientes a cada actividad
+     */
     private String[][] horasInicio;
+    /**
+     * Numero actual de actividades registradas por día
+     */
     private int[] numActividadesDia;
 
+    /**
+     * Crea un viaje indicando el número total de días y el
+     * máximo de actividades que puede contener cada día
+     *
+     * @param numDias número de días del viaje
+     * @param maxActividades máximo de actividades por día
+     */
     public Viaje(int numDias, int maxActividades) {
         this.numDias = numDias;
         this.maxActividadesPorDia = maxActividades;
@@ -30,10 +60,18 @@ public class Viaje {
 
     }
 
+    /**
+     * @return número total de días del viaje
+     */
     public int getNumDias() {
         return numDias;
     }
 
+    /**
+     * Devuelve el número de actividades planificadas en el día indicado
+     * @param dia indice del día (0 corresponde al primer día)
+     * @return número de actividades en ese día
+     */
     public int getNumActividadesDia(int dia) {
         if (dia < 0 || dia >= numDias) {
             return 0;
@@ -42,9 +80,18 @@ public class Viaje {
     }
 
 
+    /**
+     * Añade un actividad al día y hora indicados verificando que no
+     * haya solapamientos y que el día sea válido
+     *
+     * @param dia número de día
+     * @param actividad actividad a añadir
+     * @param horaInicio hora en formato HH:MM
+     * @return código de resultado (éxito, día inválido, dia completo o solapamiento)
+     */
     public int agregarActividad(int dia, Actividad actividad, String horaInicio) {
 
-         if (dia < 0 || dia >= numDias) {
+        if (dia < 0 || dia >= numDias) {
             return ERROR_DIA_INVALIDO;
         }
 
@@ -76,6 +123,11 @@ public class Viaje {
         return EXITO;
     }
 
+    /**
+     * Ordena las actividades de un día por hora de inicio, manteniendo
+     * los arrays internos(horas x actividades)
+     * @param dia indice del día que se va a ordenar
+     */
     private void ordenarActividadesDia(int dia) {
         int n = numActividadesDia[dia];
         boolean cambiado;
@@ -103,6 +155,12 @@ public class Viaje {
     }
 
 
+    /**
+     * Elimina la actividad asociada al día y hora especificados, si existe
+     * @param dia día del viaje
+     * @param horaInicio hora en formato HH:MM
+     * @return true si se elimina, false en caso contrario
+     */
     public boolean eliminarActividad(int dia, String horaInicio) {
         if (dia < 0 || dia >= numDias) {
             return false;
@@ -134,6 +192,12 @@ public class Viaje {
         return true;
     }
 
+    /**
+     * Devuelve el conjunto de actividades planificadas en un día concreto
+     * Las actividades se devuelven en orden cronológico
+     * @param dia índice del día(0 corresponde al primer día)
+     * @return actividades de un día en concreto
+     */
     public Actividad[] obtenerActividadesDia(int dia) {
         if (dia < 0 || dia >= numDias) {
             return null;
@@ -148,6 +212,11 @@ public class Viaje {
     }
 
 
+    /**
+     * Genera una descripción del itinerario completo con actividades por día
+     *
+     * @return texto con la planificación del viaje
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -189,6 +258,13 @@ public class Viaje {
     }
 
 
+    /**
+     * Guardar el itinerario completo del viaje en un fichero de texto,
+     * utilizando el formato compacto especificado.
+     *
+     * @param nombreArchivo
+     * @throws IOException
+     */
     public void guardarItinerario(String nombreArchivo) throws IOException{
         int totalActividades = 0;
         double precioTotal = 0.0;
@@ -206,7 +282,6 @@ public class Viaje {
                     for (int i = 0; i < n; i++){
                         Actividad act=actividades[d][i];
                         String hora=horasInicio[d][i];
-
                         writer.print(hora + " " + act.getNombre()
                                 + " (dur " + Utilidades.formatearDuracion(act.getDuracionMinutos())
                                 + ", " + Utilidades.formatearPrecio(act.getPrecio()) + ")");
@@ -219,13 +294,10 @@ public class Viaje {
                         precioTotal+=act.getPrecio();
                     }
                 }
-
                 writer.print("\n");
             }
-
             writer.print("Resumen: Días: "+numDias
                     + "; Actividades: "+totalActividades
                     + "; Precio total: "+Utilidades.formatearPrecio(precioTotal)+"\n");
         }
-    }
-    }
+    }}
