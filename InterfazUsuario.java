@@ -6,6 +6,7 @@ import java.util.Scanner;
 /**
  * Clase que se encarga de la comunicación con el usuario por consola.
  * Muestra menu, recibe entradas y gestiona operaciones sobre el catálogo y el viaje.
+ * @author Kai wei Jiang Xu
  */
 public class InterfazUsuario{
     private CatalogoActividades catalogo;
@@ -121,7 +122,7 @@ public class InterfazUsuario{
     }
     /**
      * Permite consultar o editar una actividad existente
-     * @param scanner
+     * @param scanner instancia de la clase scanner
      */
     private void consultarActividad(Scanner scanner) {
         Actividad seleccionada = buscarActividadPorNombre(scanner);
@@ -144,13 +145,14 @@ public class InterfazUsuario{
             Actividad[] actividades = catalogo.buscarActividadPorNombre(texto);
             if (actividades == null || actividades.length == 0) {
                 System.out.println("No se han encontrado actividades.");
+                buscarActividadPorNombre(scanner);
             }
             return seleccionarActividad(scanner, actividades);
         }
     }
     /**
      * Muestra una lista numerada de actividades y permite escoger una por índice
-     * @param scanner
+     * @param scanner instancia de la clase scanner
      * @param actividades array de actividades disponibles
      * @return actividad elegida
      */
@@ -168,7 +170,7 @@ public class InterfazUsuario{
     /**
      * Muestra los datos de una actividad y ofrece un pequeño menú de edición:
      * añadir recurso, añadir comentario o eliminar la actividad
-     * @param scanner
+     * @param scanner instancia de la clase scanner
      * @param seleccionada actividad sobre la que se va a operar
      */
     private void editarActividad(Scanner scanner, Actividad seleccionada) {
@@ -220,7 +222,7 @@ public class InterfazUsuario{
     }
     /**
      * Guarda los datos del catálogo o del viaje en un fichero de texto
-     * @param scanner
+     * @param scanner instancia de la clase scanner
      */
     private void guardarActividades(Scanner scanner) {
         String nombreArchivo = Utilidades.leerCadena(scanner, "Archivo donde guardar las actividades: ");
@@ -233,7 +235,7 @@ public class InterfazUsuario{
     }
     /**
      * Pide la ruta de un fichero y carga desde él las actividades al catálogo
-     * @param scanner
+     * @param scanner instancia de la clase scanner
      */
     private void cargarActividades(Scanner scanner) {
         String nombreArchivo = Utilidades.leerCadena(scanner, "Archivo de donde cargar las actividades: ");
@@ -246,7 +248,7 @@ public class InterfazUsuario{
     }
     /**
      * Planifica actividades dentro del viaje, indicando día, hora y actividad
-     * @param scanner
+     * @param scanner instancia de la clase scanner
      */
     private void planificarViaje(Scanner scanner) {
         System.out.println("Planificación del viaje:");
@@ -273,8 +275,8 @@ public class InterfazUsuario{
         }
     }
     /**
-     * Pidde al usuario la ruta de un fichero y ordena guardar en él el itinerario del viaje
-     * @param scanner
+     * Pide al usuario la ruta de un fichero y ordena guardar en él el itinerario del viaje
+     * @param scanner instancia de la clase scanner
      */
     private void guardarItinerario(Scanner scanner) {
         String nombreArchivo = Utilidades.leerCadena(scanner,"Archivo donde guardar el itinerario: ");

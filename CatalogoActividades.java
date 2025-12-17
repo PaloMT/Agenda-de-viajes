@@ -1,6 +1,11 @@
 package es.upm;
 import java.io.*;
 
+/**
+ * @author Sara Paloma Martínez-Tizón
+ * Almacena un conjunto de actividades. Clase que permite
+ * agregar, buscar y eliminar actividades.
+ */
 public class CatalogoActividades {
     private Actividad[] actividades;
     private int maxActividades;
@@ -10,12 +15,19 @@ public class CatalogoActividades {
     public static final int ERROR_ACTIVIDAD_NULL = 1;
     public static final int ERROR_DEMASIADOS = 2;
 
+    /**
+     *
+     * @param maxActividades Numero máximo de actividades pertimidas
+     */
     public CatalogoActividades(int maxActividades) {
         this.maxActividades = maxActividades;
         this.actividades = new Actividad[maxActividades];
         this.numActividades = 0;
     }
 
+    /**
+     * @return
+     */
     public boolean actividadesCompletas() {
         boolean verificar = false;
         if (this.numActividades == this.maxActividades) verificar = true;
@@ -35,6 +47,10 @@ public class CatalogoActividades {
         return revision;
     }
 
+    /**
+     * @param seleccionada
+     * @return
+     */
     public boolean eliminarActividad(Actividad seleccionada) {
         boolean eliminado = false;
         for (int i = 0; i < numActividades; i++) {
@@ -48,6 +64,10 @@ public class CatalogoActividades {
         return eliminado;
     }
 
+    /**
+     * @param texto
+     * @return
+     */
     public Actividad[] buscarActividadPorNombre(String texto) {
         if (texto == null) return new Actividad[0];
         String busqueda = texto.toLowerCase();
@@ -67,6 +87,10 @@ public class CatalogoActividades {
         return resultado;
     }
 
+    /**
+     * @param nombreArchivo
+     * @throws IOException
+     */
     public void guardarActividades(String nombreArchivo) throws IOException {
         // Guarda todas las actividades en un archivo de texto usando su representación compacta
         PrintWriter in = null;
@@ -88,6 +112,12 @@ public class CatalogoActividades {
         }
     }
 
+    /**
+     * @param nombreArchivo
+     * @param maxRecursos
+     * @param maxComentarios
+     * @throws IOException
+     */
     public void cargarActividades(String nombreArchivo, int maxRecursos, int maxComentarios) throws IOException {
         BufferedReader reader = null;
         boolean catalogoLleno = false;

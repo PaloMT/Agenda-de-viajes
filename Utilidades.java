@@ -4,6 +4,7 @@ import java.util.Locale;
 import java.util.Scanner;
 /**
  * Clase con métodos de utilidad para la entrada de datos por teclado y conversión de formatos.
+ * @author Sara Paloma Martínez-Tizón García
  */
 public class Utilidades {
 
@@ -11,6 +12,11 @@ public class Utilidades {
     // Métodos de entrada por teclado
     // =========================================================================
 
+    /**Metodo que emite un mensaje y guarda una respuesta
+     * @param teclado instancia de la clase scanner para leer el teclado
+     * @param s mensaje que se lee en la pantalla
+     * @return mensaje itroducido por el usuario en valor String
+     */
     public static String leerCadena(Scanner teclado, String s) {
         System.out.print(s);
         return teclado.nextLine();

@@ -2,67 +2,32 @@ package es.upm;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-
 /**
  * La clase actividad contiene datos básicos como nombre, descripción, precio y duración.
  * Además de listas limitadas de recursos y comentarios.
+ * @author Sara Paloma Martínez-Tizón García
+ * @author Kai Wei Jiang Xu
  */
 public class Actividad {
-
-    /**
-     * Constante que indica que la operación se ha realizado correcta
-     */
     public static final int EXITO = 0;
-    /**
-     * Constante que indica que el valor introducido no es válido (nulo o vacío)
-     */
     public static final int ERROR_VALOR_INVALIDO = 1;
-    /**
-     * Constante que indica que se ha alcanzado el límite máximo de recursos
-     */
     public static final int ERROR_RECURSOS_COMPLETOS = 2;
-    /**
-     * Código que indica que se ha alcanzado el límite máximo de comentarios
-     */
     public static final int ERROR_COMENTARIOS_COMPLETOS = 3;
-
-    /** Nombre de la actividad*/
     private String nombre;
-    /** Descripción de la actividad*/
     private String descripcion;
-    /**
-     * Precio en euros
-     */
     private double precio;
-    /**
-     * Duración en minutos
-     */
     private int duracionMinutos;
-    /**
-     * Recursos asociados
-     */
     private String[] recursos;
-    /**
-     * Comentarios asociados
-     */
     private String[] comentarios;
-    /**
-     * Número actual de recursos registrados
-     */
     private int numRecursos;
-    /**
-     * Numero actual de comentarios registrados
-     */
     private int numComentarios;
 
 
     /**
-     * Es el constructor.
-     * Crea una nueva actividad con los límites indicados.
+     * Es el constructor. Crea una nueva actividad con los límites indicados.
      * @param nombre nombre de la actividad
      * @param maxRecursos numero máximo de recursos asociados
      * @param maxComentarios numero máximo de comentarios asociados
-     * @author Kai Wei Jiang
      */
     public Actividad(String nombre, int maxRecursos, int maxComentarios) {
         this.nombre = nombre;
@@ -73,134 +38,126 @@ public class Actividad {
     }
 
     /**
-     * @return nombre de la actividad
-     * @author Paloma Martínez-Tizón
+     * @return atributo nombre de la actividad (String)
      */
     public String getNombre() {
         return nombre; }
 
     /**
-     * @return descripcion de la actividad
-     * @author Paloma Martínez-Tizón
+     * @return devuelve el atributo descripcion de la actividad (String)
      */
     public String getDescripcion() {
         return descripcion; }
 
     /**
-     * @param descripcion nueva descripcion
-     * @author Paloma Martínez-Tizón
+     * define un nuevo valor String al atributo descripcion
+     * @param descripcion valor String al que se quiere definir el atributo
      */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion; }
 
     /**
-     * @return precio de la actividad
-     * @author Paloma Martínez-Tizón
+     * @return atributo precio de la actividad (double)
      */
     public double getPrecio() {
         return precio; }
 
     /**
-     * @param precio nuevo precio en euros
-     * @author Paloma Martínez-Tizón
+     * define un nuevo valor int al atributo precio
+     * @param precio valor al que se quiere definir el atributo
      */
     public void setPrecio(double precio) {
         this.precio = precio; }
 
     /**
-     * @return duracion en minutos
-     * @author Paloma Martínez-Tizón
+     * @return atributo duracioMinutos de la actividad (int)
      */
     public int getDuracionMinutos() {
         return duracionMinutos; }
 
     /**
-     * @param duracionMinutos nueva duracion en minutos
-     * @author Paloma Martínez-Tizón
+     * define un nuevo valor int al atributo duracionMinutos
+     * @param duracionMinutos valor int al que se quiere definir el atributo
      */
     public void setDuracionMinutos(int duracionMinutos) {
         this.duracionMinutos = duracionMinutos; }
 
     /**
-     * @return numero actual de recursos registrados
-     * @author Paloma Martínez-Tizón
+     * @return logitud del atributo recursos de la actividad (int)
      */
     public int getMaxRecursos() {
         return recursos.length; }
 
     /**
-     * @return numero actual de comentarios registrados
-     * @author Paloma Martínez-Tizón
+     * @return logitud del atributo comentarios de la actividad (int)
      */
     public int getMaxComentarios() {
         return comentarios.length; }
 
     /**
-     * Añade un nuevo recurso si hay espacio disponible
+     * Añade un nuevo recurso si hay espacio disponible y devuelve si se ha efectuado el proceso (0),
+     * en caso contrario dara un valor de error (1 o 2)
      * @param recurso texto del recurso
-     * @return código del resultado (0=válido, 1=inválido, 2= lleno)
-     * @author Paloma Martínez-Tizón
-     * @author Kai Wei Jiang
+     * @return valor, código del resultado (0=válido, 1=inválido, 2= lleno)
      */
     public int agregarRecurso(String recurso) {
+        int valor = EXITO;
         if (recurso == null || recurso.trim().isEmpty()) {
-            return ERROR_VALOR_INVALIDO;
+            valor =  ERROR_VALOR_INVALIDO;
         }
         if (recursosCompletos()) {
-            return ERROR_RECURSOS_COMPLETOS;
+            valor = ERROR_RECURSOS_COMPLETOS;
         }
         recursos[numRecursos] = recurso;
         numRecursos++;
-        return EXITO;
+        return valor;
     }
 
     /**
-     * Añade un nuevo comentario si hay espacio disponible
+     * Añade un nuevo comentario si hay espacio disponible y proporcionara el valor de exito(0),
+     * en caso contrario pasará un valor de error (1 o 2)
      * @param comentario texto del comentario
      * @return código de resultado (0=válido, 1=inválido, 2= lleno)
-     * @author Paloma Martínez-Tizón
-     * @author Kai Wei Jiang
      */
     public int agregarComentario(String comentario) {
+        int valor = EXITO;
         if (comentario == null || comentario.trim().isEmpty()) {
-            return ERROR_VALOR_INVALIDO;
+            valor = ERROR_VALOR_INVALIDO;
         }
         if (comentariosCompletos()) {
-            return ERROR_COMENTARIOS_COMPLETOS;
+            valor = ERROR_COMENTARIOS_COMPLETOS;
         }
         comentarios[numComentarios] = comentario;
         numComentarios++;
-        return EXITO;
+        return valor;
     }
 
-    /**
-     * @return valor de los comentarios
-     * @author Paloma Martínez-Tizón
+    /**Devuelve la lista completa de comentario
+     * @return varios valores String de los comentarios 
      */
     public String[] getComentarios() {
         return comentarios; }
 
-    /**
-     * @return cantidad de recursos de la actividad
-     * @author Paloma Martínez-Tizón
+    /**Devuelve la cantidad de recursos que tiene la activida
+     * @return cantidad Valor int de numRecursos de el objeto actividad 
      */
     public int getNumRecursos() {
         return numRecursos; }
 
-    /**
-     * @return cantida de comentarios de la actividad
-     * @author Paloma Martínez-Tizón
+    /**Devuelve la cantidad numerica de comentarios que tiene la actividad seleccionada
+     * @return numComentarios valor int del atributo de la activida
      */
     public int getNumComentarios() {
         return numComentarios; }
 
-    /**
-     * @return valor de recursos
+    /**Devuelve una lista de todos los recursos que tiene la activida
+     * @return recursos lista de valores string recursos que posee el objet
      */
     public String[] getRecursos() {
         return recursos; }
 
-    /**
+    /**edevuelve True en caso que el num de recursos sa igual o mayor  a la longitud (Cantidad) de recursos disponibles,
+    * En caso contrario devolvera Fals
      * @return boleano que define si la cantidad de recursos es maxima
      */
     public boolean recursosCompletos() {
@@ -215,9 +172,7 @@ public class Actividad {
     }
 
     /**
-     * Devuelve la información completa de la actividad en formato
-     * legible
-     *
+     * Devuelve la información completa de la actividad en formato legible
      * @return texto con todos los datos introducidos
      */
     @Override
