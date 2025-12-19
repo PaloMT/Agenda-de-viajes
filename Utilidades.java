@@ -35,9 +35,12 @@ public class Utilidades {
         do{
             try{
             System.out.print(mensaje);
-            numero = teclado.nextInt();}
+            numero = teclado.nextInt();
+            if (numero < minimo || numero > maximo){
+                System.out.println("El número debe estar entre "+minimo+" y "+maximo+".");
+            }}
             catch (java.util.InputMismatchException e) {
-                System.out.println("Error: Introduce un número entero válido.");
+                System.out.println("Por favor, introduce un número válido.");
             } finally {
                 teclado.nextLine();
             }
@@ -58,9 +61,12 @@ public class Utilidades {
         do {
             try{
             System.out.print(mensaje);
-            numero = teclado.useLocale(Locale.US).nextDouble();}
+            numero = teclado.useLocale(Locale.US).nextDouble();
+            if (numero < minimo || numero > maximo){
+                System.out.println("El número debe estar entre "+minimo+" y "+maximo+".");
+            }}
             catch (java.util.InputMismatchException e) {
-                System.out.println("Error: Introduce un número entero válido.");
+                System.out.println("Por favor, introduce un número válido.");
             } finally {
                 teclado.nextLine();
             }} while (numero < minimo || numero > maximo);
@@ -83,17 +89,18 @@ public class Utilidades {
             horaIntroducida = teclado.nextLine();
 
             if (horaIntroducida.length() != 5 || horaIntroducida.charAt(2) != ':') {
-                System.out.println("Error: Formato incorrecto. Debe ser HH:MM (ej. 09:30).");
+                System.out.println("Formato incorrecto. Usa el formato HH:MM (por ejemplo, 09:30).\"");
             }
-
             try {
                 String[] partes = horaIntroducida.split(":");
                 hora = Integer.parseInt(partes[0]);
                 minutos = Integer.parseInt(partes[1]);
                 if (hora >= 0 && hora <= 23 && minutos >= 0 && minutos <= 59) {
                     esValida = true;
-                } else {
-                    System.out.println("Error: Hora fuera de rango. Debe ser de 00:00 a 23:59.");
+                } else if (hora <= 0 && hora >= 23){
+                    System.out.println("Las horas deben estar entre 00 y 23.");
+                }else{
+                    System.out.println("Los minutos deben estar entre 00 y 59.");
                 }
 
             } catch (NumberFormatException e) {
@@ -111,8 +118,8 @@ public class Utilidades {
     // =========================================================================
 
     /**Convierte una hora como el formato del metodo anterior a minutos
-     * @param hora hora en formato HH:MM (String)
-     * @return valor en minutos de la hora especificada (int)
+     * @param hora hora en formato HH:MM
+     * @return valor en minutos de la hora especificada
      */
     public static int horaAMinutos(String hora) {
         String[] dato = hora.split(":");

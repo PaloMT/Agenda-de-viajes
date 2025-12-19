@@ -59,7 +59,7 @@ public class InterfazUsuario{
      * Muestra en pantalla el menú principal de opciones
      */
     private void mostrarMenu() {
-        System.out.println(">> --- Menú Principal --- >>");
+        System.out.println("--- Menú Principal ---");
         System.out.println("1. Agregar Actividad");
         System.out.println("2. Consultar/Editar Actividad");
         System.out.println("3. Guardar Actividades");
@@ -235,7 +235,7 @@ public class InterfazUsuario{
             catalogo.guardarActividades(nombreArchivo);
             System.out.println("Actividades guardadas en " + nombreArchivo);
         } catch (IOException e) {
-            System.out.println("Error al guardar el archivo: " + e.getMessage());
+            System.out.println("Error al guardar el archivo ");
         }
     }
     /**
@@ -248,7 +248,7 @@ public class InterfazUsuario{
             catalogo.cargarActividades(nombreArchivo, maxRecursosPorActividad, maxComentariosPorActividad);
             System.out.println("Actividades cargadas desde " + nombreArchivo);
         } catch (IOException e) {
-            System.out.println("Error al cargar el archivo: " + e.getMessage());
+            System.out.println("Error al cargar el archivo ");
         }
     }
     /**
@@ -289,7 +289,7 @@ public class InterfazUsuario{
             viaje.guardarItinerario(nombreArchivo);
             System.out.println("Itinerario guardado en " + nombreArchivo);
         } catch (IOException e) {
-            System.out.println("Error al guardar el archivo: " + e.getMessage());
+            System.out.println("Error al guardar el archivo");
         }
     }
 }

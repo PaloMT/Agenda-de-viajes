@@ -225,7 +225,6 @@ public class Viaje {
         double precioTotal = 0.0;
 
         for (int d = 0; d < numDias; d++) {
-            sb.append("-------------------------------------------------------------------\n");
             sb.append("Día ").append(d + 1).append("\n");
             sb.append("-------------------------------------------------------------------\n");
 

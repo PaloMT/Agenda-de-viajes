@@ -113,8 +113,6 @@ public class CatalogoActividades {
                     in.println(actividadesGuardadas);
                 }
             }
-        } catch (IOException ex){
-            System.out.println("Error al guardar el archivo: " + ex);
         }
         finally {
             if (in != null){
@@ -143,8 +141,6 @@ public class CatalogoActividades {
                 if (resultado == ERROR_DEMASIADOS) {
                     catalogoLleno = true;}
             }
-        }catch (IOException ex){
-            System.out.println("Error: " + ex);
         }
         finally {
             if (reader != null) {
