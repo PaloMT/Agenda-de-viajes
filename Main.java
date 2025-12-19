@@ -1,7 +1,33 @@
 package es.upm;
 
 import java.util.Scanner;
+
+/**
+ * <b>Clase principal del programa</b>
+ *
+ * Se encarga de leer los <i>parámetros iniciales</i>, crear los objetos
+ * necesarios para la aplicacion y lanzar la interaccion con el usuario
+ *
+ */
 public class Main {
+
+
+    /**
+     ** Método principal de la aplicacion
+     *
+     * Los valores se reciben por línea de comandos y permiten configurar
+     * Los límites del sistema (número de actividades, días del viaje, recursos y comentarios)
+     *
+     *  @param args argumentos pasados al ejecutar el programa:
+     *  <ul>
+     *   <li>args[0]: número máximo de <l>recursos por actividad</l></li>
+     *   <li>args[1]: número máximo de comentarios por actividad</li>
+     *   <li>args[2]: número máximo de actividades en el catálogo</li>
+     *   <li>args[3]: número de días del viaje</li>
+     *   <li>args[4]: número máximo de actividades por día</li>
+     *   <li>args[5]: (opcional) nombre del archivo con actividades iniciales</li>
+     *   </ul>
+     */
 
     public static void main(String[] args) {
         if (args.length < 5 || args.length > 6) {

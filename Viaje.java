@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 /**
  *Gestiona un viaje de varios días con actividades planificadas.
  * Controla la inserción, orden y solapamiento de actividades por día y hora.
+ * @author Kai Wei Jiang Xu
  */
 public class Viaje {
 
@@ -202,7 +203,6 @@ public class Viaje {
         if (dia < 0 || dia >= numDias) {
             return null;
         }
-
         int n = numActividadesDia[dia];
         Actividad[] copia = new Actividad[n];
         for (int i = 0; i < n; i++) {

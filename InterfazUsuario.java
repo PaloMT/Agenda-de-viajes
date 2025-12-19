@@ -137,19 +137,24 @@ public class InterfazUsuario{
      * @return actividad seleccionada por el usuario
      */
     private Actividad buscarActividadPorNombre(Scanner scanner) {
-        while (true) {
-            String texto = Utilidades.leerCadena(scanner, "Introduce el texto de la actividad a buscar (-FIN- para volver): " );
-            if (texto.equals("-FIN-")) {
-                return null;
+        Actividad actividadSeleccionada = null;
+        boolean buscando = false;
+        while (!buscando) {
+            String texto = Utilidades.leerCadena(scanner, "Introduce el texto de la actividad a buscar (-FIN- para volver): ");
+            if (texto.equals("-FIN-")) {buscando = true;
+            } else {
+                Actividad[] actividades = catalogo.buscarActividadPorNombre(texto);
+                if (actividades != null && actividades.length > 0) {
+                    actividadSeleccionada = seleccionarActividad(scanner, actividades);
+                    buscando = true;
+                } else {
+                    System.out.println("No se han encontrado actividades.");
+                }
             }
-            Actividad[] actividades = catalogo.buscarActividadPorNombre(texto);
-            if (actividades == null || actividades.length == 0) {
-                System.out.println("No se han encontrado actividades.");
-                buscarActividadPorNombre(scanner);
-            }
-            return seleccionarActividad(scanner, actividades);
         }
+        return actividadSeleccionada;
     }
+
     /**
      * Muestra una lista numerada de actividades y permite escoger una por índice
      * @param scanner instancia de la clase scanner

@@ -1,10 +1,11 @@
 package es.upm;
 import java.io.*;
 
+
 /**
- * @author Sara Paloma Martínez-Tizón
  * Almacena un conjunto de actividades. Clase que permite
  * agregar, buscar y eliminar actividades.
+ * @author Sara Paloma Martínez-Tizón García
  */
 public class CatalogoActividades {
     private Actividad[] actividades;
@@ -16,7 +17,7 @@ public class CatalogoActividades {
     public static final int ERROR_DEMASIADOS = 2;
 
     /**
-     *
+     *Metodo constructor para definir atributos
      * @param maxActividades Numero máximo de actividades pertimidas
      */
     public CatalogoActividades(int maxActividades) {
@@ -25,18 +26,26 @@ public class CatalogoActividades {
         this.numActividades = 0;
     }
 
-    /**
-     * @return
+    /**Verifica se si el numero de actividades esta completa
+     * @return confirma si el numero de actividades es igual al maximo de actividades
      */
     public boolean actividadesCompletas() {
         boolean verificar = false;
         if (this.numActividades == this.maxActividades) verificar = true;
         return verificar;
     }
-
+    /**
+     * @return atributo numero de actividades (int)
+     */
     public int getNumActividades() {
         return numActividades;}
 
+    /**
+     * Añade una nueva actividad si hay espacio disponible y devuelve si se ha efectuado el proceso (0),
+     * En caso contrario dara un valor de error (1 o 2)
+     * @param actividad actividad a agregar
+     * @return valor, código del resultado (0=válido, 1=inválido, 2= lleno)
+     */
     public int agregarActividad(Actividad actividad) {
         int revision = EXITO;
         if (actividad == null) revision = ERROR_ACTIVIDAD_NULL;
@@ -48,8 +57,10 @@ public class CatalogoActividades {
     }
 
     /**
-     * @param seleccionada
-     * @return
+     * Elimina la actividad seleccionada y devuelve si se ha efectuado el proceso (True),
+     * En caso contrario dara un valor de error (False)
+     * @param seleccionada actividad seleccionada para eliminar
+     * @return valor, código del resultado (True o False)
      */
     public boolean eliminarActividad(Actividad seleccionada) {
         boolean eliminado = false;
@@ -64,9 +75,9 @@ public class CatalogoActividades {
         return eliminado;
     }
 
-    /**
-     * @param texto
-     * @return
+    /**Busca todas aquellas actividades que su nombre sea el texto introducido
+     * @param texto Texto que hay que buscar en la actividad
+     * @return una lista de todas las actividades encontraadas por ese nombre
      */
     public Actividad[] buscarActividadPorNombre(String texto) {
         if (texto == null) return new Actividad[0];
@@ -87,13 +98,13 @@ public class CatalogoActividades {
         return resultado;
     }
 
-    /**
-     * @param nombreArchivo
-     * @throws IOException
+    /**Guarda las actividades en un archivo txt
+     * @param nombreArchivo nombre para el archivo de guardado
+     * @throws IOException necesario cuando se maneja Pinwriter
+     * En caso de que halla un error al guardar el archivo da un mensaje
      */
     public void guardarActividades(String nombreArchivo) throws IOException {
-        // Guarda todas las actividades en un archivo de texto usando su representación compacta
-        PrintWriter in = null;
+       PrintWriter in = null;
         try {
             in = new PrintWriter(new FileWriter(nombreArchivo));
             for (int i = 0; i<this.numActividades; i++){
@@ -112,11 +123,11 @@ public class CatalogoActividades {
         }
     }
 
-    /**
-     * @param nombreArchivo
-     * @param maxRecursos
-     * @param maxComentarios
-     * @throws IOException
+    /**Carga las actividades desde un archivo txt
+     * @param nombreArchivo nombre del archivo desde el que se quiere cargar
+     * @param maxRecursos Máximo de recursos permitidos
+     * @param maxComentarios Maximo de cometarios permitidos
+     * @throws IOException En caso de que halla un error al cargar el archivo da un mensaje
      */
     public void cargarActividades(String nombreArchivo, int maxRecursos, int maxComentarios) throws IOException {
         BufferedReader reader = null;

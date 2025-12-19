@@ -37,27 +37,28 @@ public class Actividad {
         this.numComentarios = 0;
     }
 
-    /**
-     * @return atributo nombre de la actividad (String)
+    /**Devuelve el atributo <b>nombre</b>
+     * @return atributo nombre de la actividad
      */
     public String getNombre() {
         return nombre; }
 
-    /**
-     * @return devuelve el atributo descripcion de la actividad (String)
+    /**Devuelve el atributo <b>descripcion</b>
+     * @return devuelve el atributo descripcion de la actividad
      */
     public String getDescripcion() {
         return descripcion; }
 
     /**
-     * define un nuevo valor String al atributo descripcion
+     * define un nuevo valor String al atributo <b>descripcion</b>
      * @param descripcion valor String al que se quiere definir el atributo
      */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion; }
 
     /**
-     * @return atributo precio de la actividad (double)
+     * Devuelve el atributo precio
+     * @return atributo precio de la actividad
      */
     public double getPrecio() {
         return precio; }
@@ -70,7 +71,8 @@ public class Actividad {
         this.precio = precio; }
 
     /**
-     * @return atributo duracioMinutos de la actividad (int)
+     * Devuelve el atributo duracionMinutos
+     * @return atributo duracioMinutos de la actividad
      */
     public int getDuracionMinutos() {
         return duracionMinutos; }
