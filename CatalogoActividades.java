@@ -1,5 +1,11 @@
 package es.upm;
-import java.io.*;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.FileReader;
+
+
 
 
 /**
@@ -17,7 +23,7 @@ public class CatalogoActividades {
     public static final int ERROR_DEMASIADOS = 2;
 
     /**
-     *Metodo constructor para definir atributos
+     * Método constructor para definir atributos
      * @param maxActividades Numero máximo de actividades pertimidas
      */
     public CatalogoActividades(int maxActividades) {
@@ -26,16 +32,16 @@ public class CatalogoActividades {
         this.numActividades = 0;
     }
 
-    /**Verifica se si el numero de actividades esta completa
-     * @return confirma si el numero de actividades es igual al maximo de actividades
+    /**Verifica se si el número de actividades esta completa
+     * @return confirma si el número de actividades es igual al máximo de actividades
      */
     public boolean actividadesCompletas() {
         boolean verificar = false;
         if (this.numActividades == this.maxActividades) verificar = true;
         return verificar;
     }
-    /**
-     * @return atributo numero de actividades (int)
+    /**Devuelve el valor de el atributo getNumActividades
+     * @return atributo número de actividades
      */
     public int getNumActividades() {
         return numActividades;}
@@ -77,7 +83,7 @@ public class CatalogoActividades {
 
     /**Busca todas aquellas actividades que su nombre sea el texto introducido
      * @param texto Texto que hay que buscar en la actividad
-     * @return una lista de todas las actividades encontraadas por ese nombre
+     * @return Lista de todas las actividades encontradas por ese nombre
      */
     public Actividad[] buscarActividadPorNombre(String texto) {
         if (texto == null) return new Actividad[0];
@@ -100,17 +106,16 @@ public class CatalogoActividades {
 
     /**Guarda las actividades en un archivo txt
      * @param nombreArchivo nombre para el archivo de guardado
-     * @throws IOException necesario cuando se maneja Pinwriter
-     * En caso de que halla un error al guardar el archivo da un mensaje
+     * @throws IOException En caso de que halla un error al guardar el archivo da un mensaje y no para el codigo en su totalidad
      */
     public void guardarActividades(String nombreArchivo) throws IOException {
-       PrintWriter in = null;
+       BufferedWriter in = null;
         try {
-            in = new PrintWriter(new FileWriter(nombreArchivo));
+            in = new BufferedWriter(new FileWriter(nombreArchivo));
             for (int i = 0; i<this.numActividades; i++){
                 if(this.actividades[i] != null){
                     String actividadesGuardadas = actividades[i].toRawString();
-                    in.println(actividadesGuardadas);
+                    in.write(actividadesGuardadas);
                 }
             }
         }
@@ -125,15 +130,15 @@ public class CatalogoActividades {
      * @param nombreArchivo nombre del archivo desde el que se quiere cargar
      * @param maxRecursos Máximo de recursos permitidos
      * @param maxComentarios Maximo de cometarios permitidos
-     * @throws IOException En caso de que halla un error al cargar el archivo da un mensaje
+     * @throws IOException En caso de que halla un error al cargar el archivo da un mensaje y no para el codigo en su totalidad
      */
     public void cargarActividades(String nombreArchivo, int maxRecursos, int maxComentarios) throws IOException {
-        BufferedReader reader = null;
+        BufferedReader out = null;
         boolean catalogoLleno = false;
         try {
-            reader = new BufferedReader(new FileReader(nombreArchivo));
+            out = new BufferedReader(new FileReader(nombreArchivo));
             while (!catalogoLleno) {
-                Actividad nuevaActividad = Actividad.fromBufferedReader(reader, maxRecursos, maxComentarios);
+                Actividad nuevaActividad = Actividad.fromBufferedReader(out, maxRecursos, maxComentarios);
                 if (nuevaActividad == null) {
                     catalogoLleno = true;
                 }
@@ -143,8 +148,8 @@ public class CatalogoActividades {
             }
         }
         finally {
-            if (reader != null) {
-                reader.close();
+            if (out != null) {
+                out.close();
             }
         }
     }

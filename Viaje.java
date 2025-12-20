@@ -1,9 +1,5 @@
 package es.upm;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 /**
  *Gestiona un viaje de varios días con actividades planificadas.
@@ -12,42 +8,17 @@ import java.io.PrintWriter;
  */
 public class Viaje {
 
-    /**
-     * Códigos de resultado para agregar actividades
-     * 0= éxito, 1= día inválido, 2 = día completo, 3= solapamiento
-     */
     public static final int EXITO = 0;
     public static final int ERROR_DIA_INVALIDO = 1;
     public static final int ERROR_DIA_COMPLETO = 2;
     public static final int ERROR_SOLAPAMIENTO = 3;
-
-
-    /**
-     * Numero total de dias que dura el viaje
-     */
     private int numDias;
-    /**
-     * Numero maximo de actividades que se pueden planificar por dia
-     */
     private int maxActividadesPorDia;
-
-    /**
-     * Matriz de actividades planificadas (dias x posición)
-     */
     private Actividad[][] actividades;
-    /**
-     * Matriz de horas de inicio correspondientes a cada actividad
-     */
     private String[][] horasInicio;
-    /**
-     * Numero actual de actividades registradas por día
-     */
     private int[] numActividadesDia;
 
     /**
-     * Crea un viaje indicando el número total de días y el
-     * máximo de actividades que puede contener cada día
-     *
      * @param numDias número de días del viaje
      * @param maxActividades máximo de actividades por día
      */
@@ -225,6 +196,7 @@ public class Viaje {
         double precioTotal = 0.0;
 
         for (int d = 0; d < numDias; d++) {
+            sb.append("-------------------------------------------------------------------\n");
             sb.append("Día ").append(d + 1).append("\n");
             sb.append("-------------------------------------------------------------------\n");
 

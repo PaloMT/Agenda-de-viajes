@@ -27,6 +27,7 @@ public class InterfazUsuario{
         this.maxRecursosPorActividad = maxRecursosPorActividad;
         this.maxComentariosPorActividad = maxComentariosPorActividad;
     }
+
     /**
      * Inicia el programa y muestra el menu principal
      * @param scanner lector para la entrada de usuario
@@ -35,6 +36,7 @@ public class InterfazUsuario{
         scanner.useLocale(Locale.US);
         menuPrincipal(scanner);
     }
+
     /**
      * Muestra el menú principal y precesa las opciones seleccionadas
      * @param scanner lector de entrada
@@ -55,6 +57,7 @@ public class InterfazUsuario{
             }
         }
     }
+
     /**
      * Muestra en pantalla el menú principal de opciones
      */
@@ -68,6 +71,7 @@ public class InterfazUsuario{
         System.out.println("6. Guardar Itinerario");
         System.out.println("7. Salir");
     }
+
     /**
      * Crea una nueva actividad pidiendo los datos al usuario y la añade al catálogo
      * @param scanner lector de entrada
@@ -91,9 +95,9 @@ public class InterfazUsuario{
                 seguirRecursos = true;
             }
             int resultado = actividad.agregarRecurso(linea);
-            if (resultado == Actividad.ERROR_VALOR_INVALIDO) {
+            if (resultado == 1) {
                 System.out.println("El recurso no puede estar vacío.");
-            } else if (resultado == Actividad.ERROR_RECURSOS_COMPLETOS) {
+            } else if (resultado == 2) {
                 System.out.println("No se pueden añadir más recursos.");
                 seguirRecursos = true;
             }
@@ -106,20 +110,21 @@ public class InterfazUsuario{
                 seguirComentarios = true;
             }
             int resultado = actividad.agregarComentario(linea);
-            if (resultado == Actividad.ERROR_VALOR_INVALIDO) {
+            if (resultado == 1) {
                 System.out.println("El comentario no puede estar vacío.");
-            } else if (resultado == Actividad.ERROR_COMENTARIOS_COMPLETOS) {
+            } else if (resultado == 3) {
                 System.out.println("No se pueden añadir más comentarios.");
                 seguirComentarios = true;
             }
         }
-        int resCat = catalogo.agregarActividad(actividad);
-        if (resCat == CatalogoActividades.EXITO) {
+        int agrAct = catalogo.agregarActividad(actividad);
+        if (agrAct == CatalogoActividades.EXITO) {
             System.out.println("¡Actividad agregada exitosamente!");
         } else {
             System.out.println("No se pueden añadir más actividades.");
         }
     }
+
     /**
      * Permite consultar o editar una actividad existente
      * @param scanner instancia de la clase scanner
@@ -130,6 +135,7 @@ public class InterfazUsuario{
             editarActividad(scanner, seleccionada);
         }
     }
+
     /**
      * Busca actividades cuyo nombre contenga un texto introducido por el usuario
      * Muestra las coincidencias y permite al usuario selecciona una de ellas
@@ -172,6 +178,7 @@ public class InterfazUsuario{
         int opcion = Utilidades.leerNumero(scanner, "Elige una actividad: ", 1, actividades.length);
         return actividades[opcion - 1];
     }
+
     /**
      * Muestra los datos de una actividad y ofrece un pequeño menú de edición:
      * añadir recurso, añadir comentario o eliminar la actividad
@@ -180,8 +187,7 @@ public class InterfazUsuario{
      */
     private void editarActividad(Scanner scanner, Actividad seleccionada) {
         System.out.println();
-        System.out.println(seleccionada.toString());
-        System.out.println();
+        System.out.println(seleccionada.toString()+"\n");
         System.out.println("1. Añadir recurso");
         System.out.println("2. Añadir comentario");
         System.out.println("3. Eliminar actividad");
@@ -225,6 +231,7 @@ public class InterfazUsuario{
                 break;
         }
     }
+
     /**
      * Guarda los datos del catálogo o del viaje en un fichero de texto
      * @param scanner instancia de la clase scanner

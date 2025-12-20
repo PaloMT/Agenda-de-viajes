@@ -2,6 +2,7 @@ package es.upm;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+
 /**
  * La clase actividad contiene datos básicos como nombre, descripción, precio y duración.
  * Además de listas limitadas de recursos y comentarios.
@@ -37,20 +38,20 @@ public class Actividad {
         this.numComentarios = 0;
     }
 
-    /**Devuelve el atributo <b>nombre</b>
+    /**Devuelve el atributo nombre
      * @return atributo nombre de la actividad
      */
     public String getNombre() {
         return nombre; }
 
-    /**Devuelve el atributo <b>descripcion</b>
+    /**Devuelve el atributo descripcion
      * @return devuelve el atributo descripcion de la actividad
      */
     public String getDescripcion() {
         return descripcion; }
 
     /**
-     * define un nuevo valor String al atributo <b>descripcion</b>
+     * define un nuevo valor String al atributo descripcion
      * @param descripcion valor String al que se quiere definir el atributo
      */
     public void setDescripcion(String descripcion) {

@@ -15,19 +15,19 @@ public class Utilidades {
     /**Metodo que emite un mensaje y guarda una respuesta
      * @param teclado instancia de la clase scanner para leer el teclado
      * @param s mensaje que se lee en la pantalla
-     * @return mensaje itroducido por el usuario en valor String
+     * @return mensaje introducido por el usuario en valor String
      */
     public static String leerCadena(Scanner teclado, String s) {
         System.out.print(s);
         return teclado.nextLine();
     }
 
-    /**Metodo que lee solicita un numero entre dos valores y repite el numero
+    /**Metodo que lee solicita un numero entre dos valores y repite el número
      * hasta que este comprendido entre dos ellos
      * @param teclado instancia de la clase scanner para leer el teclado
      * @param mensaje mensaje que se lee en la pantalla
-     * @param minimo valor int minimo que puede tener el numero requerido
-     * @param maximo valor int maximo que puede tener el numero requerido
+     * @param minimo valor int mínimo que puede tener el numero requerido
+     * @param maximo valor int máximo que puede tener el numero requerido
      * @return valor int solicitado
      */
     public static int leerNumero(Scanner teclado, String mensaje, int minimo, int maximo) {
@@ -48,7 +48,7 @@ public class Utilidades {
         return numero;
     }
 
-    /**Metodo que lee solicita un numero double entre dos valores y repite el numero
+    /**Método que lee solicita un numero double entre dos valores y repite el numero
      * hasta que este comprendido entre dos ellos
      * @param teclado instancia de la clase scanner para leer el teclado
      * @param mensaje mensaje que se lee en la pantalla
@@ -74,9 +74,9 @@ public class Utilidades {
     }
 
     /**
-     * Metodo que te pide una hora en un formato específico ("HH:MM"), en caso de que el
-     * formato no sea especificado seguirá pidiendo la hora
-     * Tiene 2 cach para omitir las respuestas que no sean numericas o que se salga de rango
+     * Metodo que te pide una hora en un formato específico ("HH:MM")
+     * En caso de que el formato no sea especificado seguirá pidiendo la hora
+     * Tiene 2 catch para omitir las respuestas que no sean numericas o que se salga de rango
      * @param teclado instancia de la clase scanner para leer el teclado
      * @param mensaje mensaje que se lee en la pantalla
      * @return Hora en el formato especificado
