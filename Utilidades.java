@@ -97,9 +97,9 @@ public class Utilidades {
                 minutos = Integer.parseInt(partes[1]);
                 if (hora >= 0 && hora <= 23 && minutos >= 0 && minutos <= 59) {
                     esValida = true;
-                } else if (hora <= 0 && hora >= 23){
+                } else if (hora <= 0 || hora >= 23){
                     System.out.println("Las horas deben estar entre 00 y 23.");
-                }else{
+                }else if (minutos <= 0 || minutos >= 59){
                     System.out.println("Los minutos deben estar entre 00 y 59.");
                 }
 
