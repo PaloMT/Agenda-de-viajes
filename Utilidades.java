@@ -89,7 +89,7 @@ public class Utilidades {
             horaIntroducida = teclado.nextLine();
 
             if (horaIntroducida.length() != 5 || horaIntroducida.charAt(2) != ':') {
-                System.out.println("Formato incorrecto. Usa el formato HH:MM (por ejemplo, 09:30).\"");
+                System.out.println("Formato incorrecto. Usa el formato HH:MM (por ejemplo, 09:30).");
             }
             try {
                 String[] partes = horaIntroducida.split(":");

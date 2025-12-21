@@ -242,7 +242,7 @@ public class InterfazUsuario{
             catalogo.guardarActividades(nombreArchivo);
             System.out.println("Actividades guardadas en " + nombreArchivo);
         } catch (IOException e) {
-            System.out.println("Error al guardar el archivo ");
+            System.out.println("Error al guardar el archivo.");
         }
     }
     /**
@@ -255,7 +255,7 @@ public class InterfazUsuario{
             catalogo.cargarActividades(nombreArchivo, maxRecursosPorActividad, maxComentariosPorActividad);
             System.out.println("Actividades cargadas desde " + nombreArchivo);
         } catch (IOException e) {
-            System.out.println("Error al cargar el archivo ");
+            System.out.println("Error al cargar el archivo.");
         }
     }
     /**
@@ -296,7 +296,7 @@ public class InterfazUsuario{
             viaje.guardarItinerario(nombreArchivo);
             System.out.println("Itinerario guardado en " + nombreArchivo);
         } catch (IOException e) {
-            System.out.println("Error al guardar el archivo");
+            System.out.println("Error al guardar el archivo.");
         }
     }
 }
