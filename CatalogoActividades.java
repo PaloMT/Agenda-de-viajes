@@ -6,8 +6,6 @@ import java.io.FileWriter;
 import java.io.FileReader;
 
 
-
-
 /**
  * Almacena un conjunto de actividades. Clase que permite
  * agregar, buscar y eliminar actividades.
@@ -18,8 +16,17 @@ public class CatalogoActividades {
     private int maxActividades;
     private int numActividades;
 
+    /**
+     * Valor de exito del proceso (0)
+     */
     public static final int EXITO = 0;
+    /**
+     * Valor de error si los la actividad es nula (1)
+     */
     public static final int ERROR_ACTIVIDAD_NULL = 1;
+    /**
+     * Valor de error si las actividades son mas del máximo (2)
+     */
     public static final int ERROR_DEMASIADOS = 2;
 
     /**

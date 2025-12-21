@@ -12,7 +12,7 @@ public class Main {
 
 
     /**
-     ** Método principal de la aplicacion
+     * Método principal de la aplicacion
      * Los valores se reciben por línea de comandos y permiten configurar
      * Los límites del sistema (número de actividades, días del viaje, recursos y comentarios)
      *
@@ -28,7 +28,6 @@ public class Main {
     public static void main(String[] args) {
         if (args.length < 5 || args.length > 6) {
             System.out.println("Error: Número incorrecto de argumentos.");
-            System.out.println("Uso: java Main <maxRecursos> <maxComentarios> <maxActividades> <numDiasViaje> <maxActividadesPorDia> [archivoActividades]");
             return;
         }
 

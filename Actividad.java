@@ -10,9 +10,21 @@ import java.io.IOException;
  * @author Kai Wei Jiang Xu
  */
 public class Actividad {
+    /**
+     * Valor de exito del proceso (0)
+     */
     public static final int EXITO = 0;
+    /**
+     * Valor de error en el proceso por ser un día inválido (1)
+     */
     public static final int ERROR_VALOR_INVALIDO = 1;
+    /**
+     *Valor de error si los recursos están completos (2)
+     */
     public static final int ERROR_RECURSOS_COMPLETOS = 2;
+    /**
+     *Valor de error si los comentarios están completos (3)
+     */
     public static final int ERROR_COMENTARIOS_COMPLETOS = 3;
     private String nombre;
     private String descripcion;
@@ -104,16 +116,15 @@ public class Actividad {
      * @return valor, código del resultado (0=válido, 1=inválido, 2= lleno)
      */
     public int agregarRecurso(String recurso) {
-        int valor = EXITO;
         if (recurso == null || recurso.trim().isEmpty()) {
-            valor =  ERROR_VALOR_INVALIDO;
+            return   ERROR_VALOR_INVALIDO;
         }
         if (recursosCompletos()) {
-            valor = ERROR_RECURSOS_COMPLETOS;
+            return ERROR_RECURSOS_COMPLETOS;
         }
         recursos[numRecursos] = recurso;
         numRecursos++;
-        return valor;
+        return EXITO;
     }
 
     /**
@@ -123,16 +134,15 @@ public class Actividad {
      * @return código de resultado (0=válido, 1=inválido, 2= lleno)
      */
     public int agregarComentario(String comentario) {
-        int valor = EXITO;
         if (comentario == null || comentario.trim().isEmpty()) {
-            valor = ERROR_VALOR_INVALIDO;
+            return ERROR_VALOR_INVALIDO;
         }
         if (comentariosCompletos()) {
-            valor = ERROR_COMENTARIOS_COMPLETOS;
+            return ERROR_COMENTARIOS_COMPLETOS;
         }
         comentarios[numComentarios] = comentario;
         numComentarios++;
-        return valor;
+        return EXITO;
     }
 
     /**Devuelve la lista completa de comentario
@@ -159,16 +169,17 @@ public class Actividad {
     public String[] getRecursos() {
         return recursos; }
 
-    /**edevuelve True en caso que el num de recursos sa igual o mayor  a la longitud (Cantidad) de recursos disponibles,
-    * En caso contrario devolvera Fals
+    /**devuelve True en caso que el numero de recursos sa igual o mayor  a la longitud (Cantidad) de recursos disponibles,
+    * En caso contrario devolvera False
      * @return boleano que define si la cantidad de recursos es maxima
      */
     public boolean recursosCompletos() {
         return numRecursos >= recursos.length;
     }
 
-    /**
-     * @return
+    /**devuelve True en caso que el numero de comentarios sa igual o mayor  a la longitud (Cantidad) de comentarios disponibles,
+     * En caso contrario devolvera False
+     * @return boleano que define si la cantidad de recursos es maxima
      */
     public boolean comentariosCompletos() {
         return numComentarios >= comentarios.length;

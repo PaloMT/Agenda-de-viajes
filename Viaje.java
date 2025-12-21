@@ -8,9 +8,21 @@ import java.io.*;
  */
 public class Viaje {
 
+    /**
+     * Valor de exito del proceso (0)
+     */
     public static final int EXITO = 0;
+    /**
+     * Valor de error en el proceso por ser un día inválido (1)
+     */
     public static final int ERROR_DIA_INVALIDO = 1;
+    /**
+     * Valor de error en el proceso si el día está completo (2)
+     */
     public static final int ERROR_DIA_COMPLETO = 2;
+    /**
+     * Valor de error en el proceso por solapamiento de actividades (3)
+     */
     public static final int ERROR_SOLAPAMIENTO = 3;
     private int numDias;
     private int maxActividadesPorDia;
@@ -33,6 +45,7 @@ public class Viaje {
     }
 
     /**
+     * Debuelve el valor del atributo numDias
      * @return número total de días del viaje
      */
     public int getNumDias() {
@@ -185,7 +198,6 @@ public class Viaje {
 
     /**
      * Genera una descripción del itinerario completo con actividades por día
-     *
      * @return texto con la planificación del viaje
      */
     @Override
@@ -233,8 +245,8 @@ public class Viaje {
      * Guardar el itinerario completo del viaje en un fichero de texto,
      * utilizando el formato compacto especificado.
      *
-     * @param nombreArchivo
-     * @throws IOException
+     * @param nombreArchivo Nombre con el que se quiere guardar el archivo
+     * @throws IOException En caso de error continua el flujo del programa y no lo interrumpe
      */
     public void guardarItinerario(String nombreArchivo) throws IOException{
         int totalActividades = 0;
@@ -244,9 +256,7 @@ public class Viaje {
 
             for (int d = 0; d < numDias; d++){
                 writer.print("Día " + (d + 1) + ": ");
-
                 int n = numActividadesDia[d];
-
                 if (n == 0){
                     writer.print("---");
                 } else{
