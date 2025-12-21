@@ -4,7 +4,7 @@ import java.util.Locale;
 import java.util.Scanner;
 /**
  * Clase con métodos de utilidad para la entrada de datos por teclado y conversión de formatos.
- * @author Sara Paloma Martínez-Tizón García
+ * @author Sara Paloma Martínez-Tizón García, BW0100
  */
 public class Utilidades {
 
@@ -85,32 +85,37 @@ public class Utilidades {
         int hora = 0, minutos = 0;
         String horaIntroducida;
         boolean esValida = false;
-        do {System.out.print(mensaje);
+        do {
+            System.out.print(mensaje);
             horaIntroducida = teclado.nextLine();
-
             if (horaIntroducida.length() != 5 || horaIntroducida.charAt(2) != ':') {
                 System.out.println("Formato incorrecto. Usa el formato HH:MM (por ejemplo, 09:30).");
             }
-            try {
-                String[] partes = horaIntroducida.split(":");
-                hora = Integer.parseInt(partes[0]);
-                minutos = Integer.parseInt(partes[1]);
-                if (hora >= 0 && hora <= 23 && minutos >= 0 && minutos <= 59) {
-                    esValida = true;
-                } else if (hora <= 0 || hora >= 23){
-                    System.out.println("Las horas deben estar entre 00 y 23.");
-                }else if (minutos <= 0 || minutos >= 59){
-                    System.out.println("Los minutos deben estar entre 00 y 59.");
-                }
+            else {
+                try {
+                    String[] partes = horaIntroducida.split(":");
 
-            } catch (NumberFormatException e) {
-                System.out.println("Error: La hora y los minutos deben ser numéricos.");
+                    if (partes.length < 2) {
+                        System.out.println("Error: La hora y los minutos deben ser numéricos.");
+                    }
+                    else {
+                        hora = Integer.parseInt(partes[0]);
+                        minutos = Integer.parseInt(partes[1]);
+                        if (hora < 0 || hora > 23) {
+                            System.out.println("Las horas deben estar entre 00 y 23.");
+                        } else if (minutos < 0 || minutos > 59) {
+                            System.out.println("Los minutos deben estar entre 00 y 59.");
+                        } else {
+                            esValida = true;
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Error: La hora y los minutos deben ser numéricos.");
+                }
             }
-            catch (IndexOutOfBoundsException e) {
-                System.out.println("Error: Formato incorrecto");
-            }
+
         } while (!esValida);
-        return String.format("%02d:%02d",hora,minutos);
+        return String.format("%02d:%02d", hora, minutos);
     }
 
     // =========================================================================

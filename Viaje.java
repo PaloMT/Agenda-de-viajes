@@ -4,7 +4,7 @@ import java.io.*;
 /**
  *Gestiona un viaje de varios días con actividades planificadas.
  * Controla la inserción, orden y solapamiento de actividades por día y hora.
- * @author Kai Wei Jiang Xu
+ * @author Kai Wei Jiang Xu, BW0067
  */
 public class Viaje {
 

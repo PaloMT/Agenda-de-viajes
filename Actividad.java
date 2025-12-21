@@ -6,8 +6,8 @@ import java.io.IOException;
 /**
  * La clase actividad contiene datos básicos como nombre, descripción, precio y duración.
  * Además de listas limitadas de recursos y comentarios.
- * @author Sara Paloma Martínez-Tizón García
- * @author Kai Wei Jiang Xu
+ * @author Sara Paloma Martínez-Tizón García, BW0100
+ * @author Kai Wei Jiang Xu, BW0067
  */
 public class Actividad {
     /**
@@ -259,6 +259,7 @@ public class Actividad {
             String lineaDuracion = reader.readLine();
             if (lineaDuracion != null) duracion = Integer.parseInt(lineaDuracion.trim());
         } catch (NumberFormatException | NullPointerException e) {
+            System.out.println("Formato del precio o de la duración incorrecto");
         }
         Actividad actividad = new Actividad(nombre, maxRecursos, maxComentarios);
         actividad.setDescripcion(descripcion);

@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Clase principal del programa
  * Se encarga de leer los parámetros iniciales, crear los objetos
  * necesarios para la aplicación y lanzar la interacción con el usuario
- *
+ * @author Sara Paloma Martínez-Tizón García, BW0100
  */
 public class Main {
 

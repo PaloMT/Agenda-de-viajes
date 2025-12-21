@@ -6,7 +6,7 @@ import java.util.Scanner;
 /**
  * Clase que se encarga de la comunicación con el usuario por consola.
  * Muestra menu, recibe entradas y gestiona operaciones sobre el catálogo y el viaje.
- * @author Kai wei Jiang Xu
+ * @author Kai wei Jiang Xu, BW0067
  */
 public class InterfazUsuario{
     private CatalogoActividades catalogo;

@@ -9,7 +9,7 @@ import java.io.FileReader;
 /**
  * Almacena un conjunto de actividades. Clase que permite
  * agregar, buscar y eliminar actividades.
- * @author Sara Paloma Martínez-Tizón García
+ * @author Sara Paloma Martínez-Tizón García, BW0100
  */
 public class CatalogoActividades {
     private Actividad[] actividades;
