@@ -41,7 +41,8 @@ public class Utilidades {
             }}
             catch (java.util.InputMismatchException e) {
                 System.out.println("Por favor, introduce un número válido.");
-            } finally {
+            }
+            finally {
                 teclado.nextLine();
             }
         }while (numero < minimo || numero > maximo);
